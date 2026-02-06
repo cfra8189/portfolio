@@ -4,12 +4,12 @@ import BoxReveal from "../magicui/box-reveal";
 
 const Timeline = () => {
   return (
-    <div className="mt-36 max-sm:mt-2 h-full flex max-md:px-5 md:w-[90%] lg:w-[65%] mx-auto  ">
+    <div className="mt-36 max-sm:mt-10 h-full flex max-md:px-4 max-sm:px-3 md:w-[90%] lg:w-[65%] mx-auto">
       {/* <div className="relative mt-5 w-[1px]">
         <BorderBeam size={300} borderWidth={5} duration={10} />
       </div> */}
       <div className="">
-        <section className="m-5 ">
+        <section className="m-5 max-sm:m-2">
           <BoxReveal boxColor={theme} delay={2}>
             <h1 className="text-7xl max-xl:text-6xl max-sm:text-5xl my-7">
               Education
@@ -44,6 +44,11 @@ const Timeline = () => {
                 </p>
               </BoxReveal>
               <BoxReveal boxColor={theme}>
+                <p className="text-4xl max-xl:text-2xl max-sm:text-xl  ">
+                  {education2.branch}
+                </p>
+              </BoxReveal>
+              <BoxReveal boxColor={theme}>
                 <p className="text-3xl max-xl:text-xl max-sm:text-lg  ">
                   {education2.year}
                 </p>
@@ -52,7 +57,7 @@ const Timeline = () => {
           </ol>
         </section>
 
-        <section className="m-5 mt-14">
+        <section className="m-5 max-sm:m-2 mt-14 max-sm:mt-8">
           <div className="">
             <BoxReveal boxColor={theme}>
               <h1 className="text-7xl max-xl:text-6xl max-sm:text-5xl mb-7 ">
