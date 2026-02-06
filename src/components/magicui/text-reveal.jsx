@@ -10,19 +10,23 @@ import { name, theme } from "@/constants";
 
 export const TextRevealByWord = ({ text, className, children }) => {
   const targetRef = useRef(null);
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
   });
   const words = text.split(" ");
 
-  const buttonOpacity = useTransform(scrollYProgress, [0.8, 1], [0, 1]);
-  const buttonsY = useTransform(scrollYProgress, [0.8, 1], [20, 0]);
+  const revealStart = isMobile ? 0.3 : 0;
+  const revealEnd = isMobile ? 0.8 : 1;
+
+  const buttonOpacity = useTransform(scrollYProgress, [isMobile ? 0.8 : 0.8, isMobile ? 0.9 : 1], [0, 1]);
+  const buttonsY = useTransform(scrollYProgress, [isMobile ? 0.8 : 0.8, isMobile ? 0.9 : 1], [20, 0]);
 
   return (
     <div
       ref={targetRef}
-      className={cn("relative z-50 min-h-[195vh] max-sm:min-h-[150vh] overflow-x-clip", className)}
+      className={cn("relative z-50 min-h-[195vh] max-sm:min-h-[170vh] overflow-x-clip", className)}
       style={
         {
           "--color": theme,
@@ -47,8 +51,8 @@ export const TextRevealByWord = ({ text, className, children }) => {
           }
         >
           {words.map((word, i) => {
-            const start = i / words.length;
-            const end = start + 1 / words.length;
+            const start = revealStart + (i / words.length) * (revealEnd - revealStart);
+            const end = revealStart + ((i + 1) / words.length) * (revealEnd - revealStart);
             return (
               <Word key={i} progress={scrollYProgress} range={[start, end]}>
                 {word}
