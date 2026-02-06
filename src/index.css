@@ -183,16 +183,9 @@
 }
 
 body {
+  cursor: none;
   margin: 0;
   padding: 0;
-}
-
-/* Only hide the native cursor on devices that support a fine pointer (desktop with mouse).
-   This prevents touch devices from receiving cursor:none which can interfere with UX. */
-@media (hover: hover) and (pointer: fine) {
-  body {
-    cursor: none;
-  }
 }
 /* Custom scrollbar for WebKit-based browsers */
 ::-webkit-scrollbar {

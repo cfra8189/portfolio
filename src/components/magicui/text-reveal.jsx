@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Modal, ModalTrigger } from "../ui/animated-modal";
@@ -10,15 +10,6 @@ import { name, theme } from "@/constants";
 
 export const TextRevealByWord = ({ text, className }) => {
   const targetRef = useRef(null);
-
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 640);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -33,20 +24,16 @@ export const TextRevealByWord = ({ text, className }) => {
   return (
     <div
       ref={targetRef}
-      className={cn(
-        "relative z-50 ",
-        !isMobile ? "min-h-[195vh] max-sm:min-h-[168vh]" : "",
-        className
-      )}
-      style={{
-        "--color": theme,
-      }}
+      className={cn("relative z-50 min-h-[195vh] max-sm:min-h-[168vh] ", className)}
+      style={
+        {
+          "--color": theme,
+        }
+      }
     >
       <div
         className={
-          !isMobile
-            ? "sticky top-5 max-sm:top-10 mx-auto flex flex-col h-[81%] max-w-5xl bg-transparent md:px-[1rem] py-[7rem]"
-            : "mx-auto flex flex-col h-auto max-w-5xl bg-transparent md:px-[1rem] py-12 px-6"
+          "sticky top-5 max-sm:top-10 mx-auto flex flex-col h-[81%] max-w-5xl bg-transparent md:px-[1rem] py-[7rem]"
         }
       >
         <div className="w-full flex flex-col items-center justify-center">
@@ -78,7 +65,7 @@ export const TextRevealByWord = ({ text, className }) => {
               transition={{ type: "spring", stiffness: 300, damping: 10 }}
               className=""
             >
-              <ModalTrigger className={isMobile ? "group/modal-btn p-0" : "group/modal-btn cursor-none p-0"}>
+              <ModalTrigger className="group/modal-btn   cursor-none  p-0">
                 <div className="z-10 flexitems-center justify-center">
                   <div
                     className={cn(
