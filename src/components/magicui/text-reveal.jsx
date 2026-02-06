@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Modal, ModalTrigger } from "../ui/animated-modal";
@@ -10,21 +10,26 @@ import { name, theme } from "@/constants";
 
 export const TextRevealByWord = ({ text, className, children }) => {
   const targetRef = useRef(null);
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: isMobile ? ["start start", "end start"] : undefined,
   });
   const words = text.split(" ");
 
-  const buttonOpacity = useTransform(scrollYProgress, [0.8, 0.95], [0, 1]);
-  const buttonsY = useTransform(scrollYProgress, [0.8, 0.95], [20, 0]);
+  const buttonOpacity = useTransform(scrollYProgress, [0.8, 1], [0, 1]);
 
   return (
     <div
       ref={targetRef}
-      className={cn("relative z-50 min-h-[195vh] max-sm:min-h-[180vh] overflow-x-clip", className)}
+      className={cn("relative z-50 min-h-[195vh] max-sm:min-h-[110vh] overflow-x-clip", className)}
       style={
         {
           "--color": theme,
@@ -33,7 +38,7 @@ export const TextRevealByWord = ({ text, className, children }) => {
     >
       <div
         className={
-          "sticky top-5 max-sm:top-[5vh] mx-auto flex flex-col h-[81%] max-sm:h-auto max-w-5xl bg-transparent md:px-[1rem] py-[7rem] max-sm:py-[1rem]"
+          "sticky top-[15vh] max-sm:top-[20vh] mx-auto flex flex-col h-[81%] max-sm:h-auto max-w-5xl bg-transparent md:px-[1rem] py-[7rem] max-sm:py-[1rem]"
         }
       >
         <div className="w-full flex flex-col items-center justify-center">
@@ -82,7 +87,7 @@ export const TextRevealByWord = ({ text, className, children }) => {
         </motion.div>
         {children && (
           <motion.div
-            style={{ opacity: buttonOpacity, y: buttonsY }}
+            style={{ opacity: buttonOpacity }}
             className="mt-6 max-sm:mt-4"
           >
             {children}
