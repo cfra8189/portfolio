@@ -17,14 +17,12 @@ export const TextRevealByWord = ({ text, className, children }) => {
   const words = text.split(" ");
 
   const buttonOpacity = useTransform(scrollYProgress, [0.8, 1], [0, 1]);
-  const buttonX = useTransform(scrollYProgress, [0.8, 1], [250, 0]);
-
-
+  const buttonsY = useTransform(scrollYProgress, [0.8, 1], [20, 0]);
 
   return (
     <div
       ref={targetRef}
-      className={cn("relative z-50 min-h-[195vh] max-sm:min-h-[110vh]", className)}
+      className={cn("relative z-50 min-h-[195vh] max-sm:min-h-[130vh] overflow-x-clip", className)}
       style={
         {
           "--color": theme,
@@ -33,13 +31,13 @@ export const TextRevealByWord = ({ text, className, children }) => {
     >
       <div
         className={
-          "sticky top-[15vh] max-sm:top-[20vh] mx-auto flex flex-col h-[81%] max-sm:h-auto max-w-5xl bg-transparent md:px-[1rem] py-[7rem] max-sm:py-[1rem]"
+          "sticky top-5 max-sm:top-[5vh] mx-auto flex flex-col h-[81%] max-sm:h-auto max-w-5xl bg-transparent md:px-[1rem] py-[7rem] max-sm:py-[1rem]"
         }
       >
         <div className="w-full flex flex-col items-center justify-center">
           <h1 className="inline-block text-6xl max-md:text-3xl">i&apos;m</h1>
 
-            <h1 className={`text-9xl max-xl:text-8xl max-sm:text-5xl text-zinc-800`}>
+            <h1 className={`text-9xl max-xl:text-8xl max-sm:text-4xl text-zinc-800 max-sm:text-center max-sm:leading-tight`}>
               {name}
             </h1>
         </div>
@@ -58,34 +56,31 @@ export const TextRevealByWord = ({ text, className, children }) => {
             );
           })}
         </p>
-        <div className="flex items-center px-5 justify-start">
+        <motion.div
+          style={{ opacity: buttonOpacity }}
+          className="flex items-center px-5 justify-start overflow-hidden"
+        >
           <Modal>
-            <motion.button
-              style={{ opacity: buttonOpacity, x: buttonX }}
-              transition={{ type: "spring", stiffness: 300, damping: 10 }}
-              className=""
-            >
-              <ModalTrigger className="group/modal-btn   cursor-none  p-0">
-                <div className="z-10 flexitems-center justify-center">
-                  <div
-                    className={cn(
-                      "group rounded-full text-base text-white transition-all ease-in border border-zinc-600/70 hover:cursor-pointer  bg-neutral-950 hover:bg-neutral-800"
-                    )}
-                  >
-                    <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-4 transition ease-out hover:[color:var(--color)] hover:duration-300 lg:text-3xl md:text-2xl">
-                      <span>👋 Say hi!</span>
-                      <ArrowRightIcon className="ml-1 size-5 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
-                    </AnimatedShinyText>
-                  </div>
+            <ModalTrigger className="group/modal-btn cursor-none p-0">
+              <div className="z-10 flex items-center justify-center">
+                <div
+                  className={cn(
+                    "group rounded-full text-base text-white transition-all ease-in border border-zinc-600/70 hover:cursor-pointer bg-neutral-950 hover:bg-neutral-800"
+                  )}
+                >
+                  <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-4 transition ease-out hover:[color:var(--color)] hover:duration-300 lg:text-3xl md:text-2xl">
+                    <span>👋 Say hi!</span>
+                    <ArrowRightIcon className="ml-1 size-5 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+                  </AnimatedShinyText>
                 </div>
-              </ModalTrigger>
-            </motion.button>
+              </div>
+            </ModalTrigger>
             <ModalForm />
           </Modal>
-        </div>
+        </motion.div>
         {children && (
           <motion.div
-            style={{ opacity: buttonOpacity }}
+            style={{ opacity: buttonOpacity, y: buttonsY }}
             className="mt-6 max-sm:mt-4"
           >
             {children}

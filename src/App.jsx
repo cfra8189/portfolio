@@ -11,7 +11,7 @@ const App = () => {
   return (
     <>
       <CustomCursor />
-      <main className="min-h-screen w-full bg-dark-2 text-zinc-300 max-sm:p-1 max-sm:pt-14 max-sm:px-1 selection:bg-red-600">
+      <main className="min-h-screen w-full max-w-[100vw] bg-dark-2 text-zinc-300 max-sm:pt-6 overflow-x-hidden selection:bg-red-600">
         <TracingBeam>
           <Hero />
           <Projects />

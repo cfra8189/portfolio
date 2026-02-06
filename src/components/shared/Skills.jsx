@@ -36,14 +36,14 @@ const ReviewCard = ({ src, title }) => {
 
 export function MarqueeDemo() {
   return (
-    <div className="mt-36">
-      <div className="md:w-[90%] lg:w-[65%] mx-auto max-md:px-5  ">
-        <h1 className="text-7xl max-xl:text-6xl max-sm:text-5xl m-5 xl:mt-32">
+    <div className="mt-36 max-sm:mt-16">
+      <div className="md:w-[90%] lg:w-[65%] mx-auto max-md:px-4">
+        <h1 className="text-7xl max-xl:text-6xl max-sm:text-4xl m-5 max-sm:mx-0 max-sm:mb-4 xl:mt-32">
           Skills
         </h1>
       </div>
 
-      <div className="relative flex min-h-[500px] w-full flex-col items-center  overflow-hidden rounded-lg  bg-dark-2 md:shadow-xl">
+      <div className="relative flex min-h-[500px] max-sm:min-h-[350px] w-full max-w-[100vw] flex-col items-center overflow-hidden rounded-lg bg-dark-2 md:shadow-xl">
         <Marquee
           pauseOnHover
           className="[--duration:35s] w-full h-full  py-7 max-sm:py-4"
