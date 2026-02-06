@@ -22,7 +22,7 @@ export const TextRevealByWord = ({ text, className, children }) => {
   return (
     <div
       ref={targetRef}
-      className={cn("relative z-50 min-h-[195vh] max-sm:min-h-[130vh] overflow-x-clip", className)}
+      className={cn("relative z-50 min-h-[195vh] max-sm:min-h-[150vh] overflow-x-clip", className)}
       style={
         {
           "--color": theme,

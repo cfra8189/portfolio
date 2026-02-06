@@ -16,7 +16,7 @@ const ReviewCard = ({ src, title }) => {
         // light styles
       )}
     >
-      <div className="flex flex-col justify-center items-center gap-2 h-full w-[250px] max-sm:w-[110px] max-lg:w-[160px] max-xl:w-[210px] cursor-none">
+      <div className="flex flex-col justify-center items-center gap-2 h-full w-[250px] max-sm:w-[120px] max-lg:w-[160px] max-xl:w-[210px] cursor-none">
         <img
           className="max-sm:w-16 max-lg:w-20"
           width="102"
@@ -25,7 +25,7 @@ const ReviewCard = ({ src, title }) => {
           src={src}
         />
         <div className="flex flex-col">
-          <figcaption className="text-2xl font-medium dark:text-white">
+          <figcaption className="text-2xl max-sm:text-sm font-medium dark:text-white text-center">
             {title}
           </figcaption>
         </div>
