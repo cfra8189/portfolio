@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
-import "../../index.css"; // Ensure your CSS is imported
+import "../../index.css";
 
 const CustomCursor = () => {
   const [cursorClass, setCursorClass] = useState("default-cursor");
   const [cursorStyle, setCursorStyle] = useState({});
   const [isMobile, setIsMobile] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 640); // Adjust this width as needed
+      setIsMobile(window.innerWidth <= 640);
     };
 
-    // Initial check
     handleResize();
 
-    // Listen for resize events
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -24,7 +23,7 @@ const CustomCursor = () => {
 
   useEffect(() => {
     if (isMobile) {
-      return; // Do not apply custom cursor on mobile devices
+      return;
     }
 
     const cursor = document.querySelector(".custom-cursor");
@@ -38,6 +37,14 @@ const CustomCursor = () => {
 
     const handleMouseOver = (e) => {
       const element = e.target;
+
+      if (element.tagName === "IFRAME" || element.closest(".iframe-wrapper")) {
+        setHidden(true);
+        return;
+      }
+
+      setHidden(false);
+
       if (element.classList.contains("footer-link")) {
         const rect = element.getBoundingClientRect();
         setCursorStyle({
@@ -60,7 +67,10 @@ const CustomCursor = () => {
       }
     };
 
-    const handleMouseOut = () => {
+    const handleMouseOut = (e) => {
+      if (e.target.tagName === "IFRAME" || e.target.closest(".iframe-wrapper")) {
+        setHidden(false);
+      }
       setCursorClass("default-cursor");
       setCursorStyle({});
     };
@@ -81,10 +91,19 @@ const CustomCursor = () => {
   }, [isMobile]);
 
   if (isMobile) {
-    return null; // Do not render the custom cursor on mobile devices
+    return null;
   }
 
-  return <div className={`custom-cursor ${cursorClass}`} style={cursorStyle}></div>;
+  return (
+    <div
+      className={`custom-cursor ${cursorClass}`}
+      style={{
+        ...cursorStyle,
+        opacity: hidden ? 0 : 1,
+        transition: "opacity 0.15s ease",
+      }}
+    />
+  );
 };
 
 export default CustomCursor;

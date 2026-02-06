@@ -15,7 +15,7 @@ export const TextRevealByWord = ({ text, className, children }) => {
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: isMobile ? ["start 0.5", "end start"] : undefined,
+    offset: isMobile ? ["start 0.6", "end 0.5"] : undefined,
   });
   const words = text.split(" ");
 
@@ -24,7 +24,7 @@ export const TextRevealByWord = ({ text, className, children }) => {
   return (
     <div
       ref={targetRef}
-      className={cn("relative z-50 min-h-[195vh] max-sm:min-h-[110vh] overflow-x-clip", className)}
+      className={cn("relative z-50 min-h-[195vh] max-sm:min-h-[85vh] overflow-x-clip", className)}
       style={
         {
           "--color": theme,

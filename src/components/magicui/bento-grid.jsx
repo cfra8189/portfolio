@@ -21,6 +21,7 @@ const BentoGrid = ({ children, className }) => {
 
 const BentoCard = ({
   name,
+  slug,
   className,
   background,
   description,
@@ -31,9 +32,8 @@ const BentoCard = ({
   const mouseY = useMotionValue(0);
   return (
     <Link
-      to={href}
+      to={slug ? `/projects/${slug}` : href}
       key={name}
-      target="_blank"
       style={
         {
           "--theme": theme,
@@ -52,16 +52,16 @@ const BentoCard = ({
         className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-60 z-10 "
         style={{
           background: useMotionTemplate`
-						radial-gradient(${350}px circle at ${mouseX}px ${mouseY}px, ${`#be0303`}, transparent 100%)
-					`,
+                                                radial-gradient(${350}px circle at ${mouseX}px ${mouseY}px, ${`#be0303`}, transparent 100%)
+                                        `,
         }}
       /> */}
       <BorderBeam  borderWidth={3.5} />
       <div>
       <img className="absolute opacity-100 hover:blur-xl p-1 md:p-2 object-cover h-full w-full " src={background} />
       </div>
-      <div className="pointer-events-none z-20 flex transform-gpu flex-col gap-1 max-sm:px-6 p-6 max-sm:py-2 transition-all duration-300 group-hover:items-center group-hover:justify-center group-hover:h-full ">
-        <h1 className="xl:text-5xl text-3xl text-zinc-800 group-hover:text-white max-sm:text-2xl font-bold project-text-shadow">
+      <div className="pointer-events-none z-20 flex transform-gpu flex-col gap-1 max-sm:px-3 p-6 max-sm:py-2 transition-all duration-300 group-hover:items-center group-hover:justify-center group-hover:h-full">
+        <h1 className="xl:text-5xl text-3xl text-zinc-800 group-hover:text-white max-sm:text-lg font-bold project-text-shadow">
           {name}
         </h1>
         <p className="max-w-lg text-base text-zinc-700 max-sm:hidden project-text-shadow-soft">

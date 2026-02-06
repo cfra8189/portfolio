@@ -30,9 +30,11 @@ export const experience = {
 export const projects = [
   {
     name: "APT_ne0",
+    slug: "apt-neo",
     description: "Stack: reactjs, tailwindcss, etc",
-
-    href: "https://apartment-sigma-beryl.vercel.app/#/alchemy/apartment",
+    longDescription: "An immersive apartment-themed web experience built with React and Tailwind CSS. Features smooth page transitions, interactive room exploration, and a unique alchemy-inspired navigation system.",
+    stack: ["React", "Tailwind CSS", "Framer Motion"],
+    liveUrl: "https://apartment-sigma-beryl.vercel.app/#/alchemy/apartment",
     cta: "Learn more",
     background: "/images/aptNe0.gif",
     className:
@@ -40,9 +42,11 @@ export const projects = [
   },
   {
     name: "LUCTHELEO.COM",
+    slug: "luctheleo",
     description: "Stack: HTML, CSS, JS",
-
-    href: "https://luctheleo.com",
+    longDescription: "Official website for LUCTHELEO — a creative brand blending music, visuals, and digital experiences. Hand-coded with vanilla HTML, CSS, and JavaScript for full creative control.",
+    stack: ["HTML", "CSS", "JavaScript"],
+    liveUrl: "https://luctheleo.com",
     cta: "Learn more",
     background: "/images/ltl-site.gif",
     className:
@@ -50,9 +54,11 @@ export const projects = [
   },
   {
     name: "Task Dashboard",
+    slug: "task-dashboard",
     description: "Stack: reactjs, css3, typescript",
-
-    href: "https://cfra8189.github.io/task-dashboard/",
+    longDescription: "A productivity-focused task management dashboard built with React and TypeScript. Features drag-and-drop task organization, status tracking, and a clean minimal interface.",
+    stack: ["React", "TypeScript", "CSS3"],
+    liveUrl: "https://cfra8189.github.io/task-dashboard/",
     cta: "Learn more",
     background: "/images/task-dashboard.gif",
     className:
@@ -60,20 +66,23 @@ export const projects = [
   },
   {
     name: "Recipes Discovery App",
+    slug: "recipes-discovery",
     description: "Stack: reactjs, typescript, css3",
-
-    href: "https://cfra8189.github.io/recipes-discovery-app/",
+    longDescription: "A recipe discovery application that lets users search, browse, and save their favorite recipes. Built with React and TypeScript for a smooth, type-safe user experience.",
+    stack: ["React", "TypeScript", "CSS3"],
+    liveUrl: "https://cfra8189.github.io/recipes-discovery-app/",
     cta: "Learn more",
     background: "/images/recipe-demo.gif",
-
     className:
       "md:col-start-4 md:col-end-5 md:row-start-3 md:row-end-5 col-start-1 col-end-3 row-start-4 row-end-5",
   },
   {
     name: "Custom Hooks Library",
-    description: "Stack: reactjs, css3,javascript",
-
-    href: "https://cfra8189.github.io/custom-hooks/",
+    slug: "custom-hooks",
+    description: "Stack: reactjs, css3, javascript",
+    longDescription: "A curated collection of reusable React custom hooks with live demos. Each hook is documented with usage examples and interactive playgrounds to demonstrate real-world applications.",
+    stack: ["React", "CSS3", "JavaScript"],
+    liveUrl: "https://cfra8189.github.io/custom-hooks/",
     cta: "Learn more",
     background: "/images/custom-hooks.gif",
     className:
