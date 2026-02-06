@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Modal, ModalTrigger } from "../ui/animated-modal";
@@ -8,23 +8,18 @@ import AnimatedShinyText from "./animated-shiny-text";
 import { ArrowRightIcon } from "lucide-react";
 import { name, theme } from "@/constants";
 
+const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+
 export const TextRevealByWord = ({ text, className, children }) => {
   const targetRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 640);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
+    offset: isMobile ? ["start 0.5", "end start"] : undefined,
   });
   const words = text.split(" ");
 
-  const buttonOpacity = useTransform(scrollYProgress, isMobile ? [0.75, 0.85] : [0.8, 1], [0, 1]);
+  const buttonOpacity = useTransform(scrollYProgress, [0.8, 0.95], [0, 1]);
 
   return (
     <div
@@ -54,10 +49,8 @@ export const TextRevealByWord = ({ text, className, children }) => {
           }
         >
           {words.map((word, i) => {
-            const rStart = isMobile ? 0.35 : 0;
-            const rEnd = isMobile ? 0.75 : 1;
-            const start = rStart + (i / words.length) * (rEnd - rStart);
-            const end = rStart + ((i + 1) / words.length) * (rEnd - rStart);
+            const start = i / words.length;
+            const end = start + 1 / words.length;
             return (
               <Word key={i} progress={scrollYProgress} range={[start, end]}>
                 {word}
