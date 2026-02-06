@@ -24,12 +24,12 @@ export const TextRevealByWord = ({ text, className, children }) => {
   });
   const words = text.split(" ");
 
-  const buttonOpacity = useTransform(scrollYProgress, [0.8, 1], [0, 1]);
+  const buttonOpacity = useTransform(scrollYProgress, isMobile ? [0.75, 0.85] : [0.8, 1], [0, 1]);
 
   return (
     <div
       ref={targetRef}
-      className={cn("relative z-50 min-h-[195vh] max-sm:min-h-[130vh] overflow-x-clip", className)}
+      className={cn("relative z-50 min-h-[195vh] max-sm:min-h-[110vh] overflow-x-clip", className)}
       style={
         {
           "--color": theme,
@@ -54,8 +54,10 @@ export const TextRevealByWord = ({ text, className, children }) => {
           }
         >
           {words.map((word, i) => {
-            const start = i / words.length;
-            const end = start + 1 / words.length;
+            const rStart = isMobile ? 0.35 : 0;
+            const rEnd = isMobile ? 0.75 : 1;
+            const start = rStart + (i / words.length) * (rEnd - rStart);
+            const end = rStart + ((i + 1) / words.length) * (rEnd - rStart);
             return (
               <Word key={i} progress={scrollYProgress} range={[start, end]}>
                 {word}
