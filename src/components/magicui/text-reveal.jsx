@@ -8,7 +8,7 @@ import AnimatedShinyText from "./animated-shiny-text";
 import { ArrowRightIcon } from "lucide-react";
 import { name, theme } from "@/constants";
 
-export const TextRevealByWord = ({ text, className }) => {
+export const TextRevealByWord = ({ text, className, children }) => {
   const targetRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -24,7 +24,7 @@ export const TextRevealByWord = ({ text, className }) => {
   return (
     <div
       ref={targetRef}
-      className={cn("relative z-50 min-h-[195vh] max-sm:min-h-[168vh] ", className)}
+      className={cn("relative z-50 min-h-[195vh] max-sm:min-h-[110vh]", className)}
       style={
         {
           "--color": theme,
@@ -33,19 +33,19 @@ export const TextRevealByWord = ({ text, className }) => {
     >
       <div
         className={
-          "sticky top-5 max-sm:top-10 mx-auto flex flex-col h-[81%] max-w-5xl bg-transparent md:px-[1rem] py-[7rem]"
+          "sticky top-[15vh] max-sm:top-[20vh] mx-auto flex flex-col h-[81%] max-sm:h-auto max-w-5xl bg-transparent md:px-[1rem] py-[7rem] max-sm:py-[1rem]"
         }
       >
         <div className="w-full flex flex-col items-center justify-center">
           <h1 className="inline-block text-6xl max-md:text-3xl">i&apos;m</h1>
 
-            <h1 className={` text-9xl max-xl:text-8xl max-sm:text-7xl text-zinc-800` }>
+            <h1 className={`text-9xl max-xl:text-8xl max-sm:text-5xl text-zinc-800`}>
               {name}
             </h1>
         </div>
         <p
           className={
-            "flex flex-wrap p-5 lg:w-[750px] text-2xl text-transparent md:p-8 sm:text-3xl md:text-3xl lg:p-10 lg:text-4xl xl:text-5xl"
+            "flex flex-wrap p-5 max-sm:p-3 lg:w-[750px] text-2xl max-sm:text-xl text-transparent md:p-8 sm:text-3xl md:text-3xl lg:p-10 lg:text-4xl xl:text-5xl"
           }
         >
           {words.map((word, i) => {
@@ -73,7 +73,7 @@ export const TextRevealByWord = ({ text, className }) => {
                     )}
                   >
                     <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-4 transition ease-out hover:[color:var(--color)] hover:duration-300 lg:text-3xl md:text-2xl">
-                      <button>👋 Say hi!</button>
+                      <span>👋 Say hi!</span>
                       <ArrowRightIcon className="ml-1 size-5 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
                     </AnimatedShinyText>
                   </div>
@@ -83,6 +83,14 @@ export const TextRevealByWord = ({ text, className }) => {
             <ModalForm />
           </Modal>
         </div>
+        {children && (
+          <motion.div
+            style={{ opacity: buttonOpacity }}
+            className="mt-6 max-sm:mt-4"
+          >
+            {children}
+          </motion.div>
+        )}
       </div>
     </div>
   );
@@ -92,7 +100,7 @@ const Word = ({ children, progress, range }) => {
   const opacity = useTransform(progress, range, [0, 1]);
   return (
     <span className="xl:lg-3 relative mx-1 lg:mx-2.5">
-      <p className={"absolute opacity-30"}>{children}</p>
+      <span className={"absolute opacity-30"}>{children}</span>
       <motion.span style={{ opacity: opacity }} className={"text-white"}>
         {children}
       </motion.span>
