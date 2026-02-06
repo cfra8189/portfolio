@@ -38,7 +38,7 @@ export const TextRevealByWord = ({ text, className, children }) => {
     >
       <div
         className={
-          "sticky top-[15vh] max-sm:top-[25vh] mx-auto flex flex-col h-[81%] max-sm:h-auto max-w-5xl bg-transparent md:px-[1rem] py-[7rem] max-sm:py-[1rem]"
+          "sticky top-[15vh] max-sm:top-[35vh] mx-auto flex flex-col h-[81%] max-sm:h-auto max-w-5xl bg-transparent md:px-[1rem] py-[7rem] max-sm:py-[1rem]"
         }
       >
         <div className="w-full flex flex-col items-center justify-center">
