@@ -222,6 +222,11 @@ const VideoBackground = () => {
           muted={isMuted}
           playsInline
           className="absolute inset-0 w-full h-full object-cover z-10"
+          style={{
+            opacity: 0.35,
+            filter: 'blur(8px) grayscale(0.4) brightness(0.8) contrast(0.9)',
+            transform: 'scale(1.1)'
+          }}
         >
           <source src="/images/RVR-1.mp4" type="video/mp4" />
         </video>
