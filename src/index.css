@@ -106,9 +106,9 @@
     transform: translateY(1px);
   }
 
-  /* Convert red SVG icons in /public/icons to monochrome greys for System 1 vibe */
+  /* Convert icons to monochrome white for visibility over dark video */
   img[src^="/icons/"], img[src*="/icons/"] {
-    filter: grayscale(1) contrast(1) brightness(0.25);
+    filter: grayscale(1) invert(1) brightness(2);
     /* Ensure they render as normal elements (not blended) */
     mix-blend-mode: normal;
   }

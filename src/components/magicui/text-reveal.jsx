@@ -39,9 +39,9 @@ export const TextRevealByWord = ({ text, className, children }) => {
         <div className="w-full flex flex-col items-center justify-center">
           <h1 className="inline-block text-6xl max-md:text-3xl">i&apos;m</h1>
 
-            <h1 className={`text-9xl max-xl:text-8xl max-sm:text-4xl text-zinc-800 max-sm:text-center max-sm:leading-tight`}>
-              {name}
-            </h1>
+          <h1 className={`text-9xl max-xl:text-8xl max-sm:text-4xl text-zinc-500 max-sm:text-center max-sm:leading-tight`}>
+            {name}
+          </h1>
         </div>
         <p
           className={
@@ -71,7 +71,7 @@ export const TextRevealByWord = ({ text, className, children }) => {
                   )}
                 >
                   <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-4 transition ease-out hover:[color:var(--color)] hover:duration-300 lg:text-3xl md:text-2xl">
-                    <span>👋 Say hi!</span>
+                    <span>👋🏾 Say hi!</span>
                     <ArrowRightIcon className="ml-1 size-5 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
                   </AnimatedShinyText>
                 </div>

@@ -43,7 +43,7 @@ export function MarqueeDemo() {
         </h1>
       </div>
 
-      <div className="relative flex min-h-[500px] max-sm:min-h-[350px] w-full max-w-[100vw] flex-col items-center overflow-hidden rounded-lg bg-dark-2 md:shadow-xl">
+      <div className="relative flex min-h-[500px] max-sm:min-h-[350px] w-full max-w-[100vw] flex-col items-center overflow-hidden rounded-lg md:shadow-xl">
         <Marquee
           pauseOnHover
           className="[--duration:35s] w-full h-full  py-7 max-sm:py-4"

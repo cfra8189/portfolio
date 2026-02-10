@@ -45,25 +45,37 @@ const ModalForm = () => {
 
   const formRef = useRef(null); // Use a form reference
 
-  function onSubmit() {
-    emailjs
-      .sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICEID,
-        import.meta.env.VITE_EMAILJS_TEMPLATEID,
-        formRef.current,
-        import.meta.env.VITE_EMAILJS_PUBLICKEY
-      )
-      .then(
-        () => {
-          toast({title: 'Appreciate it!', variant:"destructive"})
-          form.reset();
-        },
-        (error) => {
-          console.log('FAILED...', error.text);
-          toast({title: 'Sigh! Server Error', variant:"destructive"})
-          form.reset();
-        }
-      );
+  function onSubmit(data) {
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICEID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATEID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLICKEY;
+
+    if (serviceId && templateId && publicKey) {
+      emailjs
+        .sendForm(serviceId, templateId, formRef.current, publicKey)
+        .then(
+          () => {
+            toast({ title: 'Message Sent!', variant: "success" });
+            form.reset();
+          },
+          (error) => {
+            console.error('EmailJS FAILED...', error);
+            toast({ title: 'Send Error', description: "Trying fallback...", variant: "destructive" });
+            handleMailtoFallback(data);
+          }
+        );
+    } else {
+      // Fallback to mailto if no keys are provided
+      handleMailtoFallback(data);
+    }
+  }
+
+  function handleMailtoFallback(data) {
+    const subject = encodeURIComponent(`Portfolio Message from ${data.user_name}`);
+    const body = encodeURIComponent(`${data.message}\n\nFrom: ${data.user_name} (${data.user_email})`);
+    window.location.href = `mailto:cfra8189@gmail.com?subject=${subject}&body=${body}`;
+    toast({ title: 'Opening Email App...', variant: "default" });
+    form.reset();
   }
 
   return (
