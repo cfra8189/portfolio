@@ -34,13 +34,13 @@ const VideoBackground = () => {
     analyserRef.current.connect(audioCtxRef.current.destination);
     analyserRef.current.fftSize = 256;
 
-    // Pre-populate cells for "Lifelines" effect
-    cellsRef.current = Array.from({ length: 15 }, () => ({
+    // Pre-populate cells for "Lifelines" effect (max 30 for performance)
+    cellsRef.current = Array.from({ length: 30 }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
       char: brandingChars[Math.floor(Math.random() * brandingChars.length)],
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
+      vx: (Math.random() - 0.5) * 0.3,  // Slower base speed
+      vy: (Math.random() - 0.5) * 0.3,
     }));
   }, []);
 
@@ -65,90 +65,112 @@ const VideoBackground = () => {
     const freqData = new Uint8Array(analyser.frequencyBinCount);
     analyser.getByteFrequencyData(freqData);
 
-    // 1. KICK DETECTION (Low Bass)
-    const kickRange = freqData.slice(0, 2);
+    // 1. KICK DETECTION (Low Bass) - For tracking lines (more sensitive)
+    const kickRange = freqData.slice(0, 4);
     const avgKick = kickRange.reduce((a, b) => a + b, 0) / (kickRange.length || 1);
-    const kickThreshold = 140;
+    const kickThreshold = 120;
     const kickBoost = avgKick > kickThreshold ? (avgKick - kickThreshold) / (255 - kickThreshold) : 0;
-    const normalizedKick = Math.min(1.0, kickBoost * 2.0);
+    const normalizedKick = Math.min(1.0, kickBoost * 2.5);
 
-    // 2. SNARE/SNAP DETECTION (Mid-High transients)
-    const snareRange = freqData.slice(15, 35);
+    // 2. SNARE/SNAP DETECTION (Mid-High transients) - For text characters (more sensitive)
+    const snareRange = freqData.slice(15, 40);
     const avgSnare = snareRange.reduce((a, b) => a + b, 0) / (snareRange.length || 1);
-    const snareThreshold = 110;
+    const snareThreshold = 90;
     const snareBoost = avgSnare > snareThreshold ? (avgSnare - snareThreshold) / (255 - snareThreshold) : 0;
-    const normalizedSnare = Math.min(1.0, snareBoost * 2.0);
+    const normalizedSnare = Math.min(1.0, snareBoost * 2.5);
 
-    // Clear with slightly higher trail for "phantom" feel
+    // Fade out previous frame for trailing effect (slower fade for smoother feel)
     ctx.globalAlpha = 1;
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // --- DRAW BACKGROUND VISUALIZER (Static Electricity Lifelines) ---
-    // Reactive primarily to the KICK
-    if (normalizedKick > 0.05) {
-      const jitter = normalizedKick * 12;
-      ctx.lineWidth = 0.2;
-      ctx.strokeStyle = `rgba(255, 255, 255, ${0.05 + normalizedKick * 0.4})`;
-
-      ctx.beginPath();
-      for (let i = 0; i < cellsRef.current.length; i++) {
-        const cell = cellsRef.current[i];
-        const jX = (Math.random() - 0.5) * jitter;
-        const jY = (Math.random() - 0.5) * jitter;
-
-        cell.x += cell.vx * (1 + normalizedKick * 15);
-        cell.y += cell.vy * (1 + normalizedKick * 15);
-
-        if (cell.x < 0 || cell.x > canvas.width) cell.vx *= -1;
-        if (cell.y < 0 || cell.y > canvas.height) cell.vy *= -1;
-
-        if (i > 0) {
-          ctx.lineTo(cell.x + jX, cell.y + jY);
-        } else {
-          ctx.moveTo(cell.x + jX, cell.y + jY);
-        }
-      }
-
-      if (normalizedKick > 0.5 && Math.random() > 0.7) {
-        const r1 = Math.floor(Math.random() * cellsRef.current.length);
-        const r2 = Math.floor(Math.random() * cellsRef.current.length);
-        ctx.moveTo(cellsRef.current[r1].x, cellsRef.current[r1].y);
-        ctx.lineTo(cellsRef.current[r2].x, cellsRef.current[r2].y);
-      }
-      ctx.stroke();
+    // --- FILM GRAIN (Silent Film Effect - Optimized) ---
+    const grainCount = 1000; // Fixed count for consistent performance
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+    for (let i = 0; i < grainCount; i++) {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height;
+      ctx.fillRect(x, y, 1, 1);
     }
 
-    // --- DRAW GLITCH CHARACTERS ---
-    // Reactive primarily to the SNARE / SNAP
-    cellsRef.current.forEach(cell => {
-      if (normalizedSnare > 0.5 && Math.random() < normalizedSnare * 0.15) {
+    // Update cell positions with occasional glitches (reduced frequency)
+    cellsRef.current.forEach((cell) => {
+      // Rare random glitch teleportation (more subtle)
+      if (Math.random() < 0.015) {  // Reduced from 5% to 1.5%
         cell.x = Math.random() * canvas.width;
         cell.y = Math.random() * canvas.height;
+      } else {
+        cell.x += cell.vx;
+        cell.y += cell.vy;
       }
 
-      const intensity = Math.max(normalizedSnare, normalizedKick);
-      const visibilityChance = 0.1 + intensity * 0.8;
+      // Bounce at boundaries
+      if (cell.x < 0 || cell.x > canvas.width) cell.vx *= -1;
+      if (cell.y < 0 || cell.y > canvas.height) cell.vy *= -1;
+    });
 
-      if (Math.random() < visibilityChance) {
-        let brightness = 0.1 + intensity * 0.5;
-        ctx.fillStyle = `rgba(255, 255, 255, ${Math.min(0.8, brightness)})`;
-        ctx.font = `${14 + normalizedSnare * 10}px 'Roboto Mono', monospace`;
+    // --- THIN FAINT TRACKING LINES (Bass/Kick Reactive) ---
+    if (normalizedKick > 0.03) {
+      const lineOpacity = 0.05 + normalizedKick * 0.15;  // Much fainter
+      const connectionCount = Math.min(20, Math.floor(3 + normalizedKick * 15));
 
-        const beatJitter = intensity * 12;
-        const gX = (Math.random() - 0.5) * beatJitter;
-        const gY = (Math.random() - 0.5) * beatJitter;
+      ctx.strokeStyle = `rgba(255, 255, 255, ${lineOpacity})`;
+      ctx.lineWidth = 0.5 + normalizedKick * 1;
+      ctx.shadowBlur = 0;
 
-        ctx.fillText(cell.char, cell.x + gX, cell.y + gY);
+      for (let i = 0; i < connectionCount; i++) {
+        const c1 = cellsRef.current[Math.floor(Math.random() * cellsRef.current.length)];
+        const c2 = cellsRef.current[Math.floor(Math.random() * cellsRef.current.length)];
 
-        if (normalizedSnare > 0.7 && Math.random() > 0.9) {
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
-          ctx.fillText(cell.char, cell.x + (Math.random() - 0.5) * 40, cell.y + (Math.random() - 0.5) * 15);
+        const dist = Math.hypot(c2.x - c1.x, c2.y - c1.y);
+        if (dist < 350) {
+          ctx.beginPath();
+          ctx.moveTo(c1.x, c1.y);
+          ctx.lineTo(c2.x, c2.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // --- WHITE TEXT CHARACTERS (Snare/Snap Reactive) ---
+    cellsRef.current.forEach((cell) => {
+      // Characters respond to snare/snap with glitchy appearance
+      if (normalizedSnare > 0.1) {
+        const snareIntensity = normalizedSnare;
+
+        // Glitch effect: musical teleportation on strong snares (less chaotic)
+        if (snareIntensity > 0.5 && Math.random() < snareIntensity * 0.15) {
+          cell.x = Math.random() * canvas.width;
+          cell.y = Math.random() * canvas.height;
+        }
+
+        const size = 14 + snareIntensity * 8;
+        const opacity = 0.4 + snareIntensity * 0.6;
+
+        // Very subtle glow
+        ctx.shadowBlur = 5 + snareIntensity * 10;
+        ctx.shadowColor = `rgba(255, 255, 255, ${snareIntensity * 0.4})`;
+
+        // White character
+        ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+        ctx.font = `${size}px 'Roboto Mono', monospace`;
+        ctx.fillText(cell.char, cell.x, cell.y);
+
+        // Random glitch duplicates
+        if (snareIntensity > 0.7 && Math.random() < 0.2) {
+          const offsetX = (Math.random() - 0.5) * 50;
+          const offsetY = (Math.random() - 0.5) * 30;
+          ctx.fillStyle = `rgba(255, 255, 255, ${opacity * 0.3})`;
+          ctx.fillText(cell.char, cell.x + offsetX, cell.y + offsetY);
         }
       }
     });
 
+    ctx.shadowBlur = 0;
+
   }, [isVfxOn]);
+
+
 
   useEffect(() => {
     const handleResize = () => {
