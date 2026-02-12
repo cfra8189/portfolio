@@ -15,16 +15,17 @@ export const TextRevealByWord = ({ text, className, children }) => {
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: isMobile ? ["start 0.6", "end 0.5"] : undefined,
+    offset: isMobile ? ["start 0.6", "end 0.5"] : ["start 0.5", "end 0.5"],
   });
   const words = text.split(" ");
 
-  const buttonOpacity = useTransform(scrollYProgress, [0.8, 0.95], [0, 1]);
+  const wordOpacity = scrollYProgress;
+  const buttonOpacity = useTransform(scrollYProgress, [0.75, 0.9], [0, 1]);
 
   return (
     <div
       ref={targetRef}
-      className={cn("relative z-50 min-h-[195vh] max-sm:min-h-[85vh] overflow-x-clip", className)}
+      className={cn("relative z-50 min-h-[150vh] max-sm:min-h-[85vh] overflow-x-clip", className)}
       style={
         {
           "--color": theme,
@@ -33,11 +34,11 @@ export const TextRevealByWord = ({ text, className, children }) => {
     >
       <div
         className={
-          "sticky top-[15vh] max-sm:top-[35vh] mx-auto flex flex-col h-[81%] max-sm:h-auto max-w-5xl bg-transparent md:px-[1rem] py-[7rem] max-sm:py-[1rem]"
+          "mx-auto flex flex-col justify-center max-w-5xl bg-transparent md:px-[1rem] py-[2rem]"
         }
       >
-        <div className="w-full flex flex-col items-center justify-center">
-          <h1 className="inline-block text-6xl max-md:text-3xl">i&apos;m</h1>
+        <div className="w-full flex flex-col items-center justify-center mb-16 text-center">
+          <h1 className="inline-block text-6xl max-md:text-3xl">I&apos;m</h1>
 
           <h1 className={`text-9xl max-xl:text-8xl max-sm:text-4xl text-zinc-500 max-sm:text-center max-sm:leading-tight`}>
             {name}
@@ -45,12 +46,12 @@ export const TextRevealByWord = ({ text, className, children }) => {
         </div>
         <p
           className={
-            "flex flex-wrap p-5 max-sm:p-3 lg:w-[750px] text-2xl max-sm:text-xl text-transparent md:p-8 sm:text-3xl md:text-3xl lg:p-10 lg:text-4xl xl:text-5xl"
+            "flex flex-wrap p-5 max-sm:p-3 lg:w-[750px] mx-auto text-2xl max-sm:text-xl text-transparent md:p-8 sm:text-3xl md:text-3xl lg:p-10 lg:text-4xl xl:text-5xl text-left"
           }
         >
           {words.map((word, i) => {
-            const start = i / words.length;
-            const end = start + 1 / words.length;
+            const start = i / words.length * 0.7;
+            const end = start + (1 / words.length) * 0.7;
             return (
               <Word key={i} progress={scrollYProgress} range={[start, end]}>
                 {word}

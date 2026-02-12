@@ -21,6 +21,12 @@ export const education2 = {
   year: "2017 - 2018",
 };
 
+export const education3 = {
+  name: "Another Level Living, Inc.",
+  branch: "Life Harmony Coach/Emotional Intelligence Certification",
+  year: "2022",
+};
+
 export const experience = {
   name: "LUCTHELEO",
   moreInfo: "REVERIE | Pleasantly lost...",

@@ -12,7 +12,7 @@ const Footer = () => {
         <Link className="footer-link" to="" onClick={handleScrollToTop}>
           ^
         </Link>
-        <span className="max-sm:hidden"> •</span>
+        <span className="max-sm:hidden mx-2"> •</span>
         <Link
           className="footer-link max-sm:mx-2"
           to={socials.github}
@@ -21,7 +21,7 @@ const Footer = () => {
           {" "}
           github
         </Link>
-        <span className="max-sm:hidden"> •</span>
+        <span className="max-sm:hidden mx-2"> •</span>
         <Link
           className="footer-link max-sm:mx-2"
           to={socials.twitter}
@@ -30,7 +30,7 @@ const Footer = () => {
           {" "}
           twitter
         </Link>
-        <span className="max-sm:hidden"> •</span>
+        <span className="max-sm:hidden mx-2"> •</span>
         <Link
           className="footer-link max-sm:mx-2"
           to={socials.linkedin}
@@ -39,7 +39,7 @@ const Footer = () => {
           {" "}
           linkedin
         </Link>
-        <span className="max-sm:hidden"> •</span>
+        <span className="max-sm:hidden mx-2"> •</span>
         <Link
           className="footer-link max-sm:mx-2"
           to={socials.instagram}

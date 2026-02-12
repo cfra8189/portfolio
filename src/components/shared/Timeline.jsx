@@ -1,5 +1,5 @@
 // import { BorderBeam } from "../magicui/border-beam";
-import { education1, education2, experience, theme } from "@/constants";
+import { education1, education2, education3, experience, theme } from "@/constants";
 import BoxReveal from "../magicui/box-reveal";
 
 const Timeline = () => {
@@ -51,6 +51,24 @@ const Timeline = () => {
               <BoxReveal boxColor={theme}>
                 <p className="text-3xl max-xl:text-xl max-sm:text-lg  ">
                   {education2.year}
+                </p>
+              </BoxReveal>
+            </li>
+
+            <li>
+              <BoxReveal boxColor={theme}>
+                <p className="text-5xl max-xl:text-4xl max-sm:text-3xl mb-2 ">
+                {education3.name}
+                </p>
+              </BoxReveal>
+              <BoxReveal boxColor={theme}>
+                <p className="text-4xl max-xl:text-2xl max-sm:text-xl  ">
+                  {education3.branch}
+                </p>
+              </BoxReveal>
+              <BoxReveal boxColor={theme}>
+                <p className="text-3xl max-xl:text-xl max-sm:text-lg  ">
+                  {education3.year}
                 </p>
               </BoxReveal>
             </li>
