@@ -40,24 +40,6 @@ const Timeline = () => {
             <li>
               <BoxReveal boxColor={theme}>
                 <p className="text-5xl max-xl:text-4xl max-sm:text-3xl mb-2 ">
-                {education2.name}
-                </p>
-              </BoxReveal>
-              <BoxReveal boxColor={theme}>
-                <p className="text-4xl max-xl:text-2xl max-sm:text-xl  ">
-                  {education2.branch}
-                </p>
-              </BoxReveal>
-              <BoxReveal boxColor={theme}>
-                <p className="text-3xl max-xl:text-xl max-sm:text-lg  ">
-                  {education2.year}
-                </p>
-              </BoxReveal>
-            </li>
-
-            <li>
-              <BoxReveal boxColor={theme}>
-                <p className="text-5xl max-xl:text-4xl max-sm:text-3xl mb-2 ">
                 {education3.name}
                 </p>
               </BoxReveal>
@@ -69,6 +51,27 @@ const Timeline = () => {
               <BoxReveal boxColor={theme}>
                 <p className="text-3xl max-xl:text-xl max-sm:text-lg  ">
                   {education3.year}
+                </p>
+              </BoxReveal>
+            </li>
+
+            <li>
+              <BoxReveal boxColor={theme}>
+                <p className="text-5xl max-xl:text-4xl max-sm:text-3xl  mb-2">
+                {education2.name}
+                </p>
+              </BoxReveal>
+
+              <BoxReveal boxColor={theme}>
+                <p className="text-4xl max-xl:text-2xl max-sm:text-xl  ">
+                  {" "}
+                  {education2.branch}
+                  </p>
+              </BoxReveal>
+
+              <BoxReveal boxColor={theme}>
+                <p className="text-3xl max-xl:text-xl max-sm:text-lg  mb-5">
+                  {education2.year}
                 </p>
               </BoxReveal>
             </li>
