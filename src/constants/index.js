@@ -33,6 +33,10 @@ export const experience = {
   year: "JUNE 2020 - PRESENT",
 };
 
+const apartmentUrl =
+  import.meta.env.VITE_APARTMENT_URL ||
+  "https://apartment-sigma-beryl.vercel.app/#/alchemy/apartment";
+
 export const projects = [
   {
     name: "APT_ne0",
@@ -40,7 +44,7 @@ export const projects = [
     description: "Stack: reactjs, tailwindcss, etc",
     longDescription: "An immersive apartment-themed web experience built with React and Tailwind CSS. Features smooth page transitions, interactive room exploration, and a unique alchemy-inspired navigation system.",
     stack: ["React", "Tailwind CSS", "Framer Motion"],
-    liveUrl: "https://apartment-sigma-beryl.vercel.app/#/alchemy/apartment",
+    liveUrl: apartmentUrl,
     cta: "Learn more",
     background: "/images/aptNe0.gif",
     className:
