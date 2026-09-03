@@ -52,7 +52,13 @@ const Hero = () => {
           <TextRevealByWord text={aboutMe}>
             <div className="flex gap-4 max-sm:flex-col max-sm:gap-3 max-sm:w-full px-5">
               <Button size="lg" variant="mac" className="w-56 max-sm:w-full" asChild>
-                <a href="/Resume.pdf" download aria-label="Download Resume">Download Resume</a>
+                <a
+                  href={`${import.meta.env.BASE_URL}Clarence-Franklin-Resume-2026.pdf`}
+                  download="Clarence-Franklin-Resume-2026.pdf"
+                  aria-label="Download Resume"
+                >
+                  Download Resume
+                </a>
               </Button>
               <Button size="lg" variant="mac" className="w-64 max-sm:w-full" asChild>
                 <a href="https://legacymusicbranding.etsy.com/listing/1570153618/trademark-filing-guide-ebook-uspto" target="_blank" rel="noreferrer" aria-label="Open USPTO Handbook on Etsy">Buy USPTO Handbook</a>
