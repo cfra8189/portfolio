@@ -10,6 +10,7 @@ import ProjectsPage from "./components/shared/ProjectsPage";
 import ScrollToTop from "./components/shared/ScrollToTop";
 import { TracingBeam } from "./components/ui/TracingBeam";
 import VideoBackground from "./components/shared/VideoBackground";
+import LtlSystemNav from "./components/shared/LtlSystemNav";
 
 const HomePage = () => (
   <TracingBeam>
@@ -24,6 +25,7 @@ const HomePage = () => (
 const App = () => {
   return (
     <>
+      <LtlSystemNav />
       <CustomCursor />
       <ScrollToTop />
       <VideoBackground />
