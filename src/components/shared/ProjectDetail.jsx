@@ -37,8 +37,6 @@ const ProjectDetail = () => {
           <span className="text-zinc-500 text-sm">{project.name}</span>
           <a
             href={project.liveUrl}
-            target="_blank"
-            rel="noreferrer"
             className="flex items-center gap-1.5 text-zinc-500 hover:text-white transition-colors duration-300 text-sm"
             style={{ cursor: "pointer" }}
           >
@@ -156,8 +154,6 @@ const ProjectDetail = () => {
               <div className="flex flex-col items-start gap-3">
                 {project.liveUrl && <a
                   href={project.liveUrl}
-                  target="_blank"
-                  rel="noreferrer"
                   className="group inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors duration-300 cursor-none"
                 >
                   <span className="text-sm">Open Project</span>
@@ -165,8 +161,6 @@ const ProjectDetail = () => {
                 </a>}
                 {project.sourceUrl && <a
                   href={project.sourceUrl}
-                  target="_blank"
-                  rel="noreferrer"
                   className="group inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors duration-300 cursor-none"
                 >
                   <span className="text-sm">Source</span>
