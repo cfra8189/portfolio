@@ -151,17 +151,28 @@ const ProjectDetail = () => {
 
             <div>
               <h2 className="text-xs tracking-[0.3em] uppercase text-zinc-600 mb-4">
-                Link
+                Links
               </h2>
-              <a
-                href={project.liveUrl || project.sourceUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="group inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors duration-300 cursor-none"
-              >
-                <span className="text-sm">{project.liveUrl ? 'Open in New Tab' : 'View Source'}</span>
-                <ExternalLink className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
+              <div className="flex flex-col items-start gap-3">
+                {project.liveUrl && <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors duration-300 cursor-none"
+                >
+                  <span className="text-sm">Open Project</span>
+                  <ExternalLink className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>}
+                {project.sourceUrl && <a
+                  href={project.sourceUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors duration-300 cursor-none"
+                >
+                  <span className="text-sm">Source</span>
+                  <ExternalLink className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>}
+              </div>
             </div>
           </motion.div>
         </div>
