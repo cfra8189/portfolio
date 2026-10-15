@@ -98,6 +98,27 @@ export const projects = [
     className:
       " md:col-start-1 md:col-end-3 md:row-start-2 md:row-end-3  col-start-1 col-end-2 row-start-3 row-end-3 ",
   },
+  {
+    name: "Signal",
+    slug: "signal",
+    description: "A browser-local budgeting, spending, and financial-goal system.",
+    longDescription: "Signal supports sample income and expenses, budget categories, financial goals, live summary calculations, browser persistence, and a complete demo reset. It does not connect to real financial accounts.",
+    stack: ["React", "TypeScript", "Browser Storage"],
+    liveUrl: "https://luctheleo.com/signal",
+    cta: "Open demo",
+    className: "md:col-span-2 col-span-3",
+  },
+  {
+    name: "Magic Cube",
+    slug: "magic-cube",
+    description: "A retro fortune interface built around an animated interactive cube.",
+    longDescription: "A vanilla HTML, CSS, and JavaScript experiment with keyboard submission, a cube shake and rotation sequence, twelve randomized responses, and persistent light and dark themes.",
+    stack: ["HTML", "CSS", "JavaScript"],
+    sourceUrl: "https://github.com/cfra8189/magic_cube",
+    cta: "View source",
+    background: "/images/magic-cube.gif",
+    className: "md:col-span-2 col-span-3",
+  },
 ];
 
 // change fill color of icons manually

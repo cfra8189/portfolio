@@ -52,11 +52,11 @@ const ProjectsPage = () => {
                 className="group block relative overflow-hidden rounded-lg border border-zinc-800 hover:border-zinc-600 transition-all duration-300 cursor-none"
               >
                 <div className="relative h-52 max-sm:h-40 overflow-hidden">
-                  <img
+                  {project.background ? <img
                     src={project.background}
-                    alt={project.name}
+                    alt=""
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
+                  /> : <div className="w-full h-full bg-zinc-950" aria-hidden="true" />}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-5 max-sm:p-4">

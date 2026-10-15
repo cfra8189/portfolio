@@ -22,7 +22,7 @@ const ProjectDetail = () => {
     );
   }
 
-  if (expanded) {
+  if (expanded && project.liveUrl) {
     return (
       <div className="fixed inset-0 z-50 bg-dark-2 flex flex-col iframe-wrapper" style={{ cursor: "auto" }}>
         <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-800 bg-dark-2">
@@ -86,28 +86,31 @@ const ProjectDetail = () => {
           </p>
         </motion.div>
 
-        <motion.div
+        {(project.liveUrl || project.background) && <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="relative w-full rounded-lg overflow-hidden mb-12 max-sm:mb-8 border border-zinc-800"
         >
           <div className="relative iframe-wrapper" style={{ cursor: "auto" }}>
-            <iframe
-              src={project.liveUrl}
-              title={project.name}
-              className="w-full h-[500px] max-sm:h-[350px] border-none bg-white"
-              sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-            />
-            <button
-              onClick={() => setExpanded(true)}
-              className="absolute top-3 right-3 p-2 bg-black/70 hover:bg-black rounded-md text-zinc-400 hover:text-white transition-all duration-300"
-              style={{ cursor: "pointer" }}
-            >
-              <Maximize2 className="w-4 h-4" />
-            </button>
+            {project.liveUrl ? <>
+              <iframe
+                src={project.liveUrl}
+                title={project.name}
+                className="w-full h-[500px] max-sm:h-[350px] border-none bg-white"
+                sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+              />
+              <button
+                onClick={() => setExpanded(true)}
+                className="absolute top-3 right-3 p-2 bg-black/70 hover:bg-black rounded-md text-zinc-400 hover:text-white transition-all duration-300"
+                style={{ cursor: "pointer" }}
+                aria-label={`Expand ${project.name} preview`}
+              >
+                <Maximize2 className="w-4 h-4" />
+              </button>
+            </> : <img src={project.background} alt={`${project.name} preview`} className="w-full max-h-[500px] object-contain bg-black" />}
           </div>
-        </motion.div>
+        </motion.div>}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-sm:gap-8">
           <motion.div
@@ -151,12 +154,12 @@ const ProjectDetail = () => {
                 Link
               </h2>
               <a
-                href={project.liveUrl}
+                href={project.liveUrl || project.sourceUrl}
                 target="_blank"
                 rel="noreferrer"
                 className="group inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors duration-300 cursor-none"
               >
-                <span className="text-sm">Open in New Tab</span>
+                <span className="text-sm">{project.liveUrl ? 'Open in New Tab' : 'View Source'}</span>
                 <ExternalLink className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
             </div>

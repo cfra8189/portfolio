@@ -57,9 +57,7 @@ const BentoCard = ({
         }}
       /> */}
       <BorderBeam  borderWidth={3.5} />
-      <div>
-      <img className="absolute opacity-100 hover:blur-xl p-1 md:p-2 object-cover h-full w-full " src={background} />
-      </div>
+      {background && <div><img className="absolute opacity-100 hover:blur-xl p-1 md:p-2 object-cover h-full w-full " src={background} alt="" /></div>}
       <div className="pointer-events-none z-20 flex transform-gpu flex-col gap-1 max-sm:px-3 p-6 max-sm:py-2 transition-all duration-300 group-hover:items-center group-hover:justify-center group-hover:h-full">
         <h1 className="xl:text-5xl text-3xl text-zinc-800 group-hover:text-white max-sm:text-lg font-bold project-text-shadow">
           {name}
